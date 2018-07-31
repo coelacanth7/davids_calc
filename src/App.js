@@ -10,8 +10,6 @@ class App extends Component {
 		this.state = {
 			inTime: "",
 			outTime: "",
-			differenceWithoutLunch: "",
-			differenceWithLunch: ""
 		};
 
 		this.updateState = this.updateState.bind(this);
@@ -25,7 +23,7 @@ class App extends Component {
 		return (
 			<div className="App">
 				<header className="App-header">
-					<h1 className="App-title">Welcome David</h1>
+					<h1 className="App-title">Hey David</h1>
 				</header>
 				<TimePicker
 					name="inTime"

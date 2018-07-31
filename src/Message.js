@@ -1,5 +1,7 @@
 import React from "react";
 
+import { randomSlur } from "./slurs.js";
+
 const Message = ({ inTime, outTime }) => {
 	function parseTimes(start, end) {
 		return {
@@ -15,14 +17,14 @@ const Message = ({ inTime, outTime }) => {
 	function subtractTime(start, end) {
 		const times = parseTimes(start, end);
 		const difference = times.endMinutes - times.startMinutes;
-		if (difference < 0 || difference === 0) return "Bitch that aint no time";
+		if (difference < 0 || difference === 0)
+			return `Hey ${randomSlur()} that aint no time`;
 		return {
 			differenceNoLunch: makeHumanReadableStr(difference),
 			differenceWithLunch:
 				difference > 30
-					? makeHumanReadableStr(difference - 30) +
-					  " if you subtract lunch."
-					: "Bitch there aint enough time for no lunch"
+					? makeHumanReadableStr(difference - 30) + " if you subtract lunch."
+					: `Hey ${randomSlur()} there aint enough time for no lunch`
 		};
 	}
 
@@ -31,16 +33,13 @@ const Message = ({ inTime, outTime }) => {
 		if (typeof times === "string") return times;
 		return (
 			<div>
-				Bitch that's {times.differenceNoLunch} and {times.differenceWithLunch}
+				Hey {randomSlur()} that's {times.differenceNoLunch} and{" "}
+				{times.differenceWithLunch}
 			</div>
 		);
 	}
 
-	return (
-		<div className="message">
-			{inTime && outTime && renderMessage()}
-		</div>
-	);
+	return <div className="message">{inTime && outTime && renderMessage()}</div>;
 };
 
 export default Message;
