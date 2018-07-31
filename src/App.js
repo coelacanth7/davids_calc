@@ -38,6 +38,7 @@ class App extends Component {
 					onChange={this.updateState}
 				/>
 				<Message inTime={this.state.inTime} outTime={this.state.outTime} />
+        <footer><a href="https://gregoryalford.com/">made by me</a></footer>
 			</div>
 		);
 	}
