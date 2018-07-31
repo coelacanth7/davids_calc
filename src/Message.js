@@ -1,44 +1,33 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Message extends Component {
-	constructor() {
-		super();
-
-		this.state = {
-			differenceNoLunch: "",
-			differenceWithLunch: ""
-		};
-	}
-
-	parseTimes(start, end) {
+const Message = ({ inTime, outTime }) => {
+	function parseTimes(start, end) {
 		return {
-			startMinutes:
-				Number(start.slice(3)) + Number(Number(start.slice(0, 2)) * 60),
-			endMinutes: Number(end.slice(3)) + Number(Number(end.slice(0, 2)) * 60)
+			startMinutes: Number(start.slice(3)) + Number(start.slice(0, 2)) * 60,
+			endMinutes: Number(end.slice(3)) + Number(end.slice(0, 2)) * 60
 		};
 	}
 
-	makeHumanReadableStr(difference) {
-		return `${Math.floor(difference / 60)} hours ${difference %
-			60} minutes`;
+	function makeHumanReadableStr(difference) {
+		return `${Math.floor(difference / 60)} hours ${difference % 60} minutes`;
 	}
 
-	subtractTime(start, end) {
-		const times = this.parseTimes(start, end);
+	function subtractTime(start, end) {
+		const times = parseTimes(start, end);
 		const difference = times.endMinutes - times.startMinutes;
-		if (difference < 0) return "Bitch that aint no time";
+		if (difference < 0 || difference === 0) return "Bitch that aint no time";
 		return {
-			differenceNoLunch: this.makeHumanReadableStr(difference),
+			differenceNoLunch: makeHumanReadableStr(difference),
 			differenceWithLunch:
 				difference > 30
-					? this.makeHumanReadableStr(difference - 30) +
+					? makeHumanReadableStr(difference - 30) +
 					  " if you subtract lunch."
 					: "Bitch there aint enough time for no lunch"
 		};
 	}
 
-	renderMessage() {
-		const times = this.subtractTime(this.props.inTime, this.props.outTime);
+	function renderMessage() {
+		const times = subtractTime(inTime, outTime);
 		if (typeof times === "string") return times;
 		return (
 			<div>
@@ -47,13 +36,11 @@ class Message extends Component {
 		);
 	}
 
-	render() {
-		return (
-			<div className="message">
-				{this.props.inTime && this.props.outTime && this.renderMessage()}
-			</div>
-		);
-	}
-}
+	return (
+		<div className="message">
+			{inTime && outTime && renderMessage()}
+		</div>
+	);
+};
 
 export default Message;
